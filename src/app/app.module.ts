@@ -3,16 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { NumberValuePipe } from './pipes/number-value.pipe';
+import { ComponentModule } from './components/component.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    NumberValuePipe,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ComponentModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
