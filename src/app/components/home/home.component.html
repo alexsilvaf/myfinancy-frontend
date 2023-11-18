@@ -1,1 +1,96 @@
-<p>home works!</p>
+<div class="main-content py-0">
+    <div class="d-flex justify-content-center flex-wrap col-lg-12">
+        <div class="d-flex justify-content-between flex-wrap col-lg-9 mx-3">
+            <div class="card col-md-3 col-12 mb-3 md-mt-0">
+                <div class="card-body text-center d-flex flex-column">
+                    <div class="w-100 d-flex align-items-center">
+                        <div class="flex-grow-1 text-center">
+                            <span class="mat-title text-primary">Disponível</span>
+                        </div>
+                    </div>
+                    <span class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0">{{totalValue | currencyValue}}</span>
+                </div>
+            </div>
+            <div class="card col-md-3 col-12 mb-3 md-mt-0">
+                <div class="card-body text-center d-flex flex-column">
+                    <div class="w-100 d-flex align-items-center">
+                        <div class="flex-grow-1 text-center">
+                            <span class="mat-title text-primary ml-4">Receita do Mês</span>
+                        </div>
+                        <div class="cursor-pointer" (click)="navigateToManagment('receive')">
+                            <i class="material-icons material-symbols-outlined" style="font-size: 20px;">settings</i>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0 text-success">{{totalReceive
+                        | currencyValue}}</span>
+                </div>
+            </div>
+            <div class="card col-md-3 col-12 mb-3 md-mt-0">
+                <div class="card-body text-center d-flex flex-column">
+                    <div class="w-100 d-flex align-items-center">
+                        <div class="flex-grow-1 text-center">
+                            <span class="mat-title text-primary ml-4">Gastos do Mês</span>
+                        </div>
+                        <div class="cursor-pointer" (click)="navigateToManagment('expense')">
+                            <i class="material-icons material-symbols-outlined" style="font-size: 20px;">settings</i>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0 text-danger">{{totalExpense
+                        | currencyValue}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid d-flex flex-wrap justify-content-center">
+        <div class="card col-lg-10 col-12 mb-3">
+            <div class="card-header bg-success d-flex justify-content-between">
+                <h4 class="text-white">Meu Patrimônio</h4>
+            </div>
+            <div class="card-body d-flex flex-wrap">
+                <div class="row mx-0 d-flex col-md-6 custom-border-right">
+                    <span class="w-100 text-center mat-title text-primary" style="height: 30px">Ganhos / Gastos</span>
+                    <div class="d-flex flex-column justify-content-center align-items-center w-100 h-75">
+                        <canvas #receiveExpenseChart></canvas>
+                        <div class="text-center mt-0" *ngIf="!hasReceiveExpenseChartData">
+                            <div class="d-flex flex-column justify-content-center align-items-center"
+                                style="height: 368px">
+                                Você ainda não possui ganhos
+                            </div>
+                        </div>
+                        <div class="text-center mt-3 w-100" *ngIf="hasReceiveExpenseChartData">
+                            <div class="d-flex align-items-center mat-subheading-2 justify-content-center no-wrap-scroll"
+                                #scrollDiv1>
+                                <div class="mx-2 d-flex align-items-center">
+                                    <span class="legend-color mr-1 rounded-circle"
+                                        [ngStyle]="{'background-color': 'rgb(94, 208, 144)'}"></span>
+                                    Ganhos
+                                </div>
+                                <div class="mx-2 d-flex align-items-center">
+                                    <span class="legend-color mr-1 rounded-circle"
+                                        [ngStyle]="{'background-color': 'rgb(208, 100, 100)'}"></span>
+                                    Gastos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0 d-flex col-md-6">
+                    <span class="w-100 text-center mat-title text-primary mb-3">Despesas durante o ano</span>
+                    <div class="d-flex flex-column justify-content-center align-items-center w-100 h-75">
+                        <canvas #historyChart class="my-chart"></canvas>
+                        <div class="text-center mt-0" *ngIf="!hasHistoryData">
+                            <div class="d-flex flex-column justify-content-center align-items-center"
+                                style="height: 368px">
+                                Você ainda não possui gastos
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
