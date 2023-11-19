@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -11,7 +10,7 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/home', title: 'Página Inicial',  icon: 'home', class: '' }
+  { path: '/home', title: 'Página Inicial',  icon: 'home', class: '' },
 ]
 
 @Component({
