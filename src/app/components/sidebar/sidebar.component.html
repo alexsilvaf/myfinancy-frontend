@@ -11,7 +11,7 @@
             <div class="d-flex flex-column flex-grow-1 justify-content-center">
                 <ul class="nav nav-pills nav-flush flex-column text-center">
                     <li class="nav-item" *ngFor="let menuItem of menuItems">
-                        <a class="nav-link mx-0" [routerLink]="[menuItem.path]" routerLinkActive="active">
+                        <a class="nav-link mx-0" [routerLink]="[menuItem.path]" routerLinkActive="active" matTooltip="{{ menuItem.title }}">
                             <i class="material-icons">{{menuItem.icon}}</i>
                         </a>
                     </li>

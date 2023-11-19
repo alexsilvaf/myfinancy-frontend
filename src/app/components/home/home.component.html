@@ -119,6 +119,10 @@
                                     <td class="text-nowrap">{{ asset.class }}</td>
                                     <td class="text-nowrap">{{ asset.totalValue | currencyValue }}</td>
                                 </tr>
+                                <!--empty message-->
+                                <tr *ngIf="receiveList.length == 0">
+                                    <td colspan="4" class="text-center">Nenhum registro encontrado</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -142,6 +146,10 @@
                                     <td class="text-nowrap">{{ asset.class }}</td>
                                     <td class="text-nowrap">{{ asset.installments | numberValue }}</td>
                                     <td class="text-nowrap">{{ asset.totalValue | currencyValue }}</td>
+                                </tr>
+                                <!--empty message-->
+                                <tr *ngIf="expenseList.length == 0">
+                                    <td colspan="5" class="text-center">Nenhum registro encontrado</td>
                                 </tr>
                             </tbody>
                         </table>
