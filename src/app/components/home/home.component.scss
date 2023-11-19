@@ -22,28 +22,29 @@
     display: block;
 }
 
-.no-wrap-scroll {
+table{
+    min-width: 100%;
+}
+
+.overflow-y-auto {
     white-space: nowrap;
-    overflow-x: auto;
+    overflow-y: auto;
     flex-shrink: 0;
-    width: 100%;
+    height: 300px;
 }
 
-.no-wrap-scroll::-webkit-scrollbar {
-    height: 8px;
+.overflow-y-auto::-webkit-scrollbar {
+    height: 100%;
+    width: 4px;
 }
 
-.no-wrap-scroll.has-scrollbar {
+.overflow-y-auto.has-scrollbar {
     justify-content: flex-start !important;
 }
 
-.no-wrap-scroll::-webkit-scrollbar-thumb {
+.overflow-y-auto::-webkit-scrollbar-thumb {
     background-color: #ccc;
-    border-radius: 4px;
-}
-
-.no-wrap-scroll::-webkit-scrollbar-track {
-    background-color: #f5f5f5;
+    border-radius: 1px;
 }
 
 .custom-border-right {
@@ -52,6 +53,12 @@
 
 .mt-lg-0 {
     margin-top: 0px;
+}
+
+.no-wrap-cell{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media (max-width: 768px) { /* 768px é o breakpoint para md no Bootstrap */

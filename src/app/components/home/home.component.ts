@@ -34,68 +34,70 @@ export class HomeComponent implements OnInit {
   }
 
   createChart() {
+
     var receiveExpenseChart = this.receiveExpenseChart?.nativeElement?.getContext('2d');
     var historyChart = this.historyChart?.nativeElement?.getContext('2d');
-    let expenseToChartList = [];
-    let currentDate = new Date(); // System date
-    currentDate.setMonth(currentDate.getMonth() - 1); //  Start from the previous month to the current one
-    let currentMonth = currentDate.getMonth();
-    let currentYear = currentDate.getFullYear();
+    if(this.expenseList && historyChart && receiveExpenseChart) {
+      let expenseToChartList = [];
+      let currentDate = new Date(); // System date
+      currentDate.setMonth(currentDate.getMonth() - 1); //  Start from the previous month to the current one
+      let currentMonth = currentDate.getMonth();
+      let currentYear = currentDate.getFullYear();
 
-    for(let index = 0; index < 12; index++) {
-      let expenseToChart = new CategoryHistoryModel();
-      let year = currentYear;
-      let month = currentMonth - index;
-      
-      if (month < 0) {
-        month += 12; // Adjust the month to the previous year
-        year--; // Subtract 1 from the year
+      for(let index = 0; index < 12; index++) {
+        let expenseToChart = new CategoryHistoryModel();
+        let year = currentYear;
+        let month = currentMonth - index;
+        
+        if (month < 0) {
+          month += 12; // Adjust the month to the previous year
+          year--; // Subtract 1 from the year
+        }
+
+        let date = new Date(year, month, 1);
+
+        let value = this.expenseList?.filter(expense => expense.date.getMonth() == month && expense.date.getFullYear() == date.getFullYear());
+        let totalValue = value?.reduce((acc, expense) => acc + expense.totalValue, 0);
+        expenseToChart.month = date;
+        expenseToChart.totalValue = totalValue;
+        expenseToChartList.push(expenseToChart);
       }
 
-      let date = new Date(year, month, 1);
-
-      let value = this.expenseList.filter(expense => expense.date.getMonth() == month && expense.date.getFullYear() == date.getFullYear());
-      let totalValue = value.reduce((acc, expense) => acc + expense.totalValue, 0);
-      expenseToChart.month = date;
-      expenseToChart.totalValue = totalValue;
-      expenseToChartList.push(expenseToChart);
-    }
-
-    expenseToChartList.sort((a, b) => a.month.getTime() - b.month.getTime());
-
-    var myHistoryChart = new Chart(historyChart, {
-      type: 'bar',
-      data: {
-        labels: expenseToChartList.map(category => category.month?.toLocaleDateString('pt-BR', { month: '2-digit', year: '2-digit' })), // Asumindo que 'month' já está no formato 'mm/aa'
-        datasets: [{
-          data: expenseToChartList.map(category => category.totalValue),
-          backgroundColor: 'rgba(10, 238, 144, 0.4)', // Background color of the bars (light green transparent)
-          borderColor: 'rgba(10, 238, 144, 1)', // Background color of the border of the bars (light green opaque)
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false // Remove the legend
-          }
+      expenseToChartList.sort((a, b) => a.month.getTime() - b.month.getTime());
+      var myHistoryChart = new Chart(historyChart, {
+        type: 'bar',
+        data: {
+          labels: expenseToChartList.map(category => category.month?.toLocaleDateString('pt-BR', { month: '2-digit', year: '2-digit' })), // Asumindo que 'month' já está no formato 'mm/aa'
+          datasets: [{
+            data: expenseToChartList.map(category => category.totalValue),
+            backgroundColor: 'rgba(10, 238, 144, 0.4)', // Background color of the bars (light green transparent)
+            borderColor: 'rgba(10, 238, 144, 1)', // Background color of the border of the bars (light green opaque)
+            borderWidth: 1
+          }]
         },
-        scales: {
-          y: {
-            display: false, // Remove the y axis labels
-            beginAtZero: true // Start the y axis at 0
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false // Remove the legend
+            }
           },
-          x: {
-            // Configure the x axis
-            grid: {
-              display: false // This removes the horizontal lines
+          scales: {
+            y: {
+              display: false, // Remove the y axis labels
+              beginAtZero: true // Start the y axis at 0
+            },
+            x: {
+              // Configure the x axis
+              grid: {
+                display: false // This removes the horizontal lines
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
 
     if (this.receiveList && this.receiveList.length > 0) {
       var myReceiveExpenseChart = new Chart(receiveExpenseChart, {
