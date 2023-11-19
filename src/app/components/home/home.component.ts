@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.receiveList = this.categoryService.getAllReceive();
     this.categoryHistoryModelList = this.categoryService.getHistoryExpenseChartModel();
-    this.createChart();
   }
 
   ngAfterViewInit() {
@@ -42,7 +41,7 @@ export class HomeComponent implements OnInit {
     var historyChart = this.historyChart?.nativeElement?.getContext('2d');
 
     var myHistoryChart = new Chart(historyChart, {
-      type: 'bar', // Mudar para gráfico de barras
+      type: 'bar',
       data: {
         labels: this.categoryHistoryModelList.map(category => category.month), // Asumindo que 'month' já está no formato 'mm/aa'
         datasets: [{
@@ -76,7 +75,6 @@ export class HomeComponent implements OnInit {
     });
 
     if (this.receiveList && this.receiveList.length > 0) {
-
       var myReceiveExpenseChart = new Chart(receiveExpenseChart, {
         type: 'doughnut',
         data: {
@@ -95,7 +93,8 @@ export class HomeComponent implements OnInit {
               callbacks: {
                 label: function(context) {
                   let label = context.dataIndex == 0 ? 'Despesas' : 'Receitas';
-                  return label + ': ' + context.formattedValue;
+                  const valor = typeof context.raw === 'number' ? context.raw : 0;
+                  return label + ': ' + new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
                 }
               }
             }
