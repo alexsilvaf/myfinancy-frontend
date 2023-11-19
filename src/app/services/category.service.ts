@@ -1,60 +1,84 @@
-// message.service.ts
-
 import { Injectable } from '@angular/core';
 import { CategoryType } from 'app/enums/category-type';
-import { CategoryHistoryModel } from 'app/models/category-history.model';
 import { CategoryChartModel } from 'app/models/category-chart.model';
+import { ClassType } from 'app/enums/class-type';
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  getAllReceive(): CategoryChartModel[] {
-    let response = [
-      {
-        name: 'Salário',
-        type: CategoryType.RECEIVE,
-        totalValue: 4000,
-      },
-      {
-        name: 'Investimentos',
-        type: CategoryType.RECEIVE,
-        totalValue: 2300,
-      }
-    ]
-    return response;
+  getAll(): CategoryChartModel[] {
+    const receiveCount = this.randomInt(3, 10);
+    const expenseCount = this.randomInt(30, 120);
+    const receives = this.generateCategoryItems(receiveCount, CategoryType.RECEIVE);
+    const totalReceiveThisMonth = receives
+    .filter(item => this.isCurrentMonth(item.date))
+    .reduce((acc, item) => acc + item.totalValue, 0);
+
+    let expenses = this.generateCategoryItems(expenseCount, CategoryType.EXPENSE, totalReceiveThisMonth);
+
+    return [...receives, ...expenses];
   }
 
-  getHistoryExpenseChartModel(): CategoryHistoryModel[] {
-    let response = [];
-    let currentDate = new Date(); // Data atual
-    currentDate.setMonth(currentDate.getMonth() - 1); // Começar do mês anterior ao atual
-    let currentMonth = currentDate.getMonth();
-    let currentYear = currentDate.getFullYear();
-  
-    for (let index = 0; index < 12; index++) {
-      // Calcula o mês e ano correto subtraindo o índice
-      let year = currentYear;
-      let month = currentMonth - index;
-  
-      // Ajusta a data se o mês for negativo, significando que cruzou o ano
-      if (month < 0) {
-        month += 12; // Ajusta o mês para o ano anterior
-        year--; // Diminui o ano
+  private isCurrentMonth(date: Date): boolean {
+    const currentDate = new Date();
+    return date.getMonth() === currentDate.getMonth() && date.getFullYear() === currentDate.getFullYear();
+  }
+
+  private generateCategoryItems(count: number, type: CategoryType, maxReceiveValue?: number): CategoryChartModel[] {
+    const items = [];
+    if(maxReceiveValue){
+      maxReceiveValue = this.randomInt(maxReceiveValue/5, maxReceiveValue)
+    }
+    for (let i = 0; i < count; i++) {
+      const classType = this.getClassTypeForCategory(type);
+      const date = type === CategoryType.RECEIVE ? this.currentDateThisMonth() : this.randomDateLastYear();
+      let totalValue = 0;
+      const installments = classType === ClassType.SALARY || classType === ClassType.INVESTMENT ? null : this.randomInt(1, 12);
+      if(type === CategoryType.EXPENSE && date.getMonth() + installments >= this.currentDateThisMonth().getMonth()){
+        totalValue = this.randomInt(maxReceiveValue/(maxReceiveValue / 10), maxReceiveValue);
+        if(totalValue > maxReceiveValue){
+         continue;
+        }
+        maxReceiveValue -= totalValue;
+      } else {
+        totalValue = this.randomInt(100, 5000);
       }
-  
-      // Cria a nova data com o mês e ano calculados
-      let date = new Date(year, month, 1);
-  
-      // Gerar um valor aleatório entre 800 e 4000
-      let randomValue = Math.random() * (4000 - 800) + 800;
-  
-      // Adiciona o objeto ao início da resposta para manter a ordem correta
-      response.unshift({
-        month: date.toLocaleDateString('pt-BR', { month: '2-digit', year: '2-digit' }), // Formato mm/aa
-        totalValue: randomValue
+
+      items.push({
+        type: type,
+        date:  date,
+        name: classType,
+        class: classType,
+        installments: installments,
+        totalValue: totalValue
       });
     }
-    return response;
+    return items;
+  }
+
+  private randomDateLastYear(): Date {
+    const currentDate = new Date();
+    const pastYearDate = new Date();
+    pastYearDate.setFullYear(currentDate.getFullYear() - 1);
+    pastYearDate.setMonth(currentDate.getMonth() + 1);
+
+    return new Date(pastYearDate.getTime() + Math.random() * (currentDate.getTime() - pastYearDate.getTime()));
+  }
+
+  private currentDateThisMonth(): Date {
+    const currentDate = new Date();
+    return new Date(currentDate.getFullYear(), currentDate.getMonth(), Math.floor(Math.random() * currentDate.getDate()) + 1)
+  }
+
+  private getClassTypeForCategory(type: CategoryType): ClassType {
+    const receiveClasses = [ClassType.SALARY, ClassType.LOAN, ClassType.INVESTMENT, ClassType.OTHER];
+    const expenseClasses = [ClassType.LOAN, ClassType.INVESTMENT, ClassType.CREDIT_CARD, ClassType.OTHER];
+    const classes = type === CategoryType.RECEIVE ? receiveClasses : expenseClasses;
+    return classes[this.randomInt(0, classes.length - 1)];
+  }
+
+  private randomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
 }

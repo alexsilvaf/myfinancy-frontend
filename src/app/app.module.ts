@@ -9,7 +9,6 @@ import { ComponentModule } from './components/component.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NumberValuePipe,
   ],
   imports: [
     BrowserModule,

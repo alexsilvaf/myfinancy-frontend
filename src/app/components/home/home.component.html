@@ -1,4 +1,5 @@
 <div class="main-content py-0">
+    <!-- Indicators Area -->
     <div class="d-flex justify-content-center flex-wrap col-lg-12">
         <div class="d-flex justify-content-between flex-wrap col-lg-9 mx-3">
             <div class="card col-md-3 col-12 mb-3">
@@ -35,7 +36,7 @@
                     <div class="col-11">
                         <div class="w-100 d-flex align-items-center">
                             <div class="flex-grow-1 text-center">
-                                <span class="mat-title text-primary ml-4 fw-bold">Gastos do Mês</span>
+                                <span class="mat-title text-primary ml-4 fw-bold">Despesas do Mês</span>
                             </div>
                         </div>
                         <span class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0 text-danger">{{totalExpense | currencyValue}}</span>
@@ -49,14 +50,15 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid d-flex flex-wrap justify-content-center">
-        <div class="card col-lg-10 col-12 mb-3">
+    <!-- My Wealth: Chart Area -->
+    <div class="container-fluid d-flex flex-wrap justify-content-center px-lg-5">
+        <div class="card mb-3 w-100">
             <div class="card-header bg-success d-flex justify-content-between">
                 <h4 class="text-white">Meu Patrimônio</h4>
             </div>
             <div class="card-body d-flex flex-wrap">
                 <div class="row mx-0 d-flex col-md-6 custom-border-right">
-                    <span class="w-100 text-center mat-title text-primary fw-bold">Ganhos / Gastos</span>
+                    <span class="w-100 text-center mat-title text-primary fw-bold">Receitas / Despesas</span>
                     <div class="d-flex flex-column justify-content-center align-items-center w-100 h-75">
                         <div class="text-center mt-0" *ngIf="!hasReceiveExpenseChartData">
                             <div class="d-flex flex-column justify-content-center align-items-center"
@@ -66,7 +68,7 @@
                         </div>
                         <div *ngIf="hasReceiveExpenseChartData">
                             <canvas #receiveExpenseChart class="pt-4"></canvas>
-                            <div class="d-flex align-items-center mat-subheading-2 justify-content-center no-wrap-scroll text-center mt-3 w-100" #scrollDiv1>
+                            <div class="d-flex align-items-center mat-subheading-2 justify-content-center no-wrap-scroll text-center mt-3 w-100">
                                 <div class="mx-2 d-flex align-items-center">
                                     <span class="legend-color mr-1 rounded-circle"
                                         [ngStyle]="{'background-color': 'rgb(94, 208, 144)'}"></span>
@@ -75,7 +77,7 @@
                                 <div class="mx-2 d-flex align-items-center">
                                     <span class="legend-color mr-1 rounded-circle"
                                         [ngStyle]="{'background-color': 'rgb(208, 100, 100)'}"></span>
-                                    Gastos
+                                    Despesas
                                 </div>
                             </div>
                         </div>
@@ -87,12 +89,62 @@
                         <div class="text-center mt-0" *ngIf="!hasHistoryData">
                             <div class="d-flex flex-column justify-content-center align-items-center"
                                 style="height: 368px">
-                                Você ainda não possui gastos
+                                Você ainda não possui despesas
                             </div>
                         </div>
                         <div class="w-100 pt-4" *ngIf="hasHistoryData">
                             <canvas #historyChart class="my-chart"></canvas>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Wealth: Table Area -->
+        <div class="row col-lg-12 overflow-x-auto">
+            <div class="col-lg-6 ps-lg-0">
+                <div class="card overflow-x-auto">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead class="fw-bold text-primary">
+                                <th style="width: 120px;">Data</th>
+                                <th>Nome</th>
+                                <th>Classe</th>
+                                <th>Valor</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let asset of receiveList">
+                                    <td class="text-nowrap">{{ asset.date | date:'dd/MM/yy' }}</td>
+                                    <td class="text-nowrap">{{ asset.name }}</td>                                    
+                                    <td class="text-nowrap">{{ asset.class }}</td>
+                                    <td class="text-nowrap">{{ asset.totalValue | currencyValue }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 pe-lg-0 mt-4 mt-md-0">
+                <div class="card overflow-x-auto">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead class="fw-bold text-primary">
+                                <th style="width: 120px;">Data</th>
+                                <th>Nome</th>
+                                <th>Classe</th>
+                                <th class="pe-2">Parcelas</th>
+                                <th>Valor</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let asset of expenseList">
+                                    <td class="text-nowrap">{{ asset.date | date:'MM/yy' }}</td>
+                                    <td class="text-nowrap">{{ asset.name }}</td>                                    
+                                    <td class="text-nowrap">{{ asset.class }}</td>
+                                    <td class="text-nowrap">{{ asset.installments | numberValue }}</td>
+                                    <td class="text-nowrap">{{ asset.totalValue | currencyValue }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

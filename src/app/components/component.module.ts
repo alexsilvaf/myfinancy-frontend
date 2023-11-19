@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'app/material/material/material.module';
 import { NgChartsModule } from 'ng2-charts';
 import { CurrencyValuePipe } from 'app/pipes/currency-value.pipe';
+import { NumberValuePipe } from 'app/pipes/number-value.pipe';
 
 const COMPONENTS = [
   HomeComponent,
@@ -15,6 +16,7 @@ const COMPONENTS = [
 @NgModule({
   declarations: [
     CurrencyValuePipe,
+    NumberValuePipe,
     COMPONENTS,
   ],
   imports: [

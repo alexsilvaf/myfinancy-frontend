@@ -14,40 +14,63 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   @ViewChild('receiveExpenseChart') receiveExpenseChart: ElementRef;
   @ViewChild('historyChart') historyChart: ElementRef;
-  @ViewChild('scrollDiv1') scrollDiv1: ElementRef;
-  @ViewChild('scrollDiv2') scrollDiv2: ElementRef;
 
   receiveList: CategoryChartModel[] = [];
-  categoryHistoryModelList: CategoryHistoryModel[] = [];
+  expenseList: CategoryChartModel[] = [];
+  assets: CategoryChartModel[] = [];
 
   constructor(
     private categoryService: CategoryService,
     private router: Router) { }
 
   ngOnInit() {
-    this.receiveList = this.categoryService.getAllReceive();
-    this.categoryHistoryModelList = this.categoryService.getHistoryExpenseChartModel();
+    this.assets = this.categoryService.getAll().sort((a, b) => b.date.getTime() - a.date.getTime());
+    this.receiveList = this.assets?.filter(asset => asset.type == CategoryType.RECEIVE);
+    this.expenseList = this.assets?.filter(asset => asset.type == CategoryType.EXPENSE);
   }
 
   ngAfterViewInit() {
     this.createChart();
-    setTimeout(() => {
-      this.checkForScrollbar([this.scrollDiv1, this.scrollDiv2]);
-    }, 0);
   }
 
   createChart() {
     var receiveExpenseChart = this.receiveExpenseChart?.nativeElement?.getContext('2d');
     var historyChart = this.historyChart?.nativeElement?.getContext('2d');
+    let expenseToChartList = [];
+    let currentDate = new Date(); // System date
+    currentDate.setMonth(currentDate.getMonth() - 1); //  Start from the previous month to the current one
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    for(let index = 0; index < 12; index++) {
+      let expenseToChart = new CategoryHistoryModel();
+      let year = currentYear;
+      let month = currentMonth - index;
+      
+      if (month < 0) {
+        month += 12; // Adjust the month to the previous year
+        year--; // Subtract 1 from the year
+      }
+
+      let date = new Date(year, month, 1);
+
+      let value = this.expenseList.filter(expense => expense.date.getMonth() == month && expense.date.getFullYear() == date.getFullYear());
+      let totalValue = value.reduce((acc, expense) => acc + expense.totalValue, 0);
+      expenseToChart.month = date;
+      expenseToChart.totalValue = totalValue;
+      expenseToChartList.push(expenseToChart);
+    }
+
+    expenseToChartList.sort((a, b) => a.month.getTime() - b.month.getTime());
 
     var myHistoryChart = new Chart(historyChart, {
       type: 'bar',
       data: {
-        labels: this.categoryHistoryModelList.map(category => category.month), // Asumindo que 'month' já está no formato 'mm/aa'
+        labels: expenseToChartList.map(category => category.month?.toLocaleDateString('pt-BR', { month: '2-digit', year: '2-digit' })), // Asumindo que 'month' já está no formato 'mm/aa'
         datasets: [{
-          data: this.categoryHistoryModelList.map(category => category.totalValue),
-          backgroundColor: 'rgba(10, 238, 144, 0.4)', // Cor de fundo das barras (verde claro transparente)
-          borderColor: 'rgba(10, 238, 144, 1)', // Cor da borda das barras (verde claro opaco)
+          data: expenseToChartList.map(category => category.totalValue),
+          backgroundColor: 'rgba(10, 238, 144, 0.4)', // Background color of the bars (light green transparent)
+          borderColor: 'rgba(10, 238, 144, 1)', // Background color of the border of the bars (light green opaque)
           borderWidth: 1
         }]
       },
@@ -56,18 +79,18 @@ export class HomeComponent implements OnInit {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: false // Remove a legenda do gráfico
+            display: false // Remove the legend
           }
         },
         scales: {
           y: {
-            display: false, // Remove as legendas do eixo y (esquerda)
-            beginAtZero: true // Começa a escala no zero
+            display: false, // Remove the y axis labels
+            beginAtZero: true // Start the y axis at 0
           },
           x: {
-            // Configurações adicionais para o eixo x, se necessário
+            // Configure the x axis
             grid: {
-              display: false // Isso removerá as linhas de grade verticais do eixo x
+              display: false // This removes the horizontal lines
             }
           }
         }
@@ -81,7 +104,7 @@ export class HomeComponent implements OnInit {
           datasets: [{
             data: [this.totalExpense, this.totalReceive],
             backgroundColor: ['rgb(200, 9, 9)', 'rgb(10, 200, 144)'],
-            borderWidth: 1 // Você pode ajustar a largura da borda conforme necessário
+            borderWidth: 1
           }]
         },
         options: {
@@ -106,12 +129,10 @@ export class HomeComponent implements OnInit {
           onClick: (evt, element) => {
             if (element.length > 0) {
               var index = element[0].index;
-              // Verifica qual dado foi clicado e realiza a ação correspondente
+              // Verify if the user clicked on the expense or receive chart
               if (index === 0) {
-                // Redireciona para a página de despesas
                 this.navigateToManagment('expense');
               } else if (index === 1) {
-                // Redireciona para a página de receitas
                 this.navigateToManagment('receive');
               }
             }
@@ -120,7 +141,7 @@ export class HomeComponent implements OnInit {
       });
 
     } else {
-      // Se os gráficos já estiverem inicializados, destrua-os
+      // If the chart just has one value, remove the chart
       if (myReceiveExpenseChart) {
         myReceiveExpenseChart.destroy();
       }
@@ -128,7 +149,6 @@ export class HomeComponent implements OnInit {
         myHistoryChart.destroy();
       }
 
-      // Defina a altura dos elementos do gráfico como 0
       if (this.receiveExpenseChart?.nativeElement) {
         this.receiveExpenseChart.nativeElement.style.height = '0px';
       }
@@ -136,30 +156,6 @@ export class HomeComponent implements OnInit {
         this.historyChart.nativeElement.style.height = '0px';
       }
     }
-  }
-
-  checkForScrollbar(scrollDivs: ElementRef[]) {
-    scrollDivs.forEach(scrollDiv => {
-      const parentElement = scrollDiv?.nativeElement;
-      const children = parentElement?.children;
-      let totalChildrenWidth = 0;
-
-      for (let i = 0; i < children?.length; i++) {
-        const child = children[i];
-        const style = window.getComputedStyle(child);
-        const marginLeft = parseFloat(style.marginLeft || '0');
-        const marginRight = parseFloat(style.marginRight || '0');
-
-        totalChildrenWidth += child.offsetWidth + marginLeft + marginRight;
-      }
-
-      if (totalChildrenWidth > parentElement?.offsetWidth) {
-        // A largura total dos elementos filhos (incluindo margens) é maior que a largura do elemento pai
-        parentElement.classList.add('has-scrollbar');
-      } else {
-        parentElement?.classList.remove('has-scrollbar');
-      }
-    });
   }
 
   navigateToManagment(type: 'receive' | 'expense') {
@@ -172,7 +168,7 @@ export class HomeComponent implements OnInit {
   }
 
   get hasHistoryData(): boolean {
-    return this.categoryHistoryModelList && this.categoryHistoryModelList.length > 0;
+    return this.expenseList && this.expenseList.length > 0;
   }
 
   get totalValue(): number {
@@ -180,7 +176,7 @@ export class HomeComponent implements OnInit {
   }
 
   get totalExpense(): number {
-    return this.categoryHistoryModelList[this.categoryHistoryModelList.length - 1]?.totalValue || 0;
+    return this.expenseList.filter(asset => asset.date.getMonth() + asset.installments >= new Date().getMonth()).reduce((acc, asset) => acc + asset.totalValue, 0);
   }
 
   get totalReceive(): number {
