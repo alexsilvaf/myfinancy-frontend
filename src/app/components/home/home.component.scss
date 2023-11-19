@@ -50,17 +50,14 @@
     border-right: 1px solid #dee2e6; /* Ajuste a cor conforme necessário */
 }
 
+.mt-lg-0 {
+    margin-top: 0px;
+}
+
 @media (max-width: 768px) { /* 768px é o breakpoint para md no Bootstrap */
     .custom-border-right {
-        border-right: 0px solid #dee2e6; /* Ajuste a cor conforme necessário */
-    }
-
-    .md-mt-0 {
-        margin-top: 0 !important;
-    }
-
-    .md-px-0 {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        border-right: 0px;
+        border-bottom: 1px solid #dee2e6 !important;
+        padding-bottom: 1.5rem !important;
     }
 }
