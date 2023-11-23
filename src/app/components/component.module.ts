@@ -10,7 +10,7 @@ import { NumberValuePipe } from 'app/pipes/number-value.pipe';
 import { ManageAssetsComponent } from './manage-assets/manage-assets.component';
 import { DoubleNumberDirective } from 'app/directives/double-number.directive';
 import { IntegerNumberDirective } from 'app/directives/integer-number.directive';
-import { UserAccountComponent } from './users/user-account.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 const COMPONENTS = [
   HomeComponent,

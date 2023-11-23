@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ManageAssetsComponent } from './components/manage-assets/manage-assets.component';
-import { UserAccountComponent } from './components/users/user-account.component';
+import { UserAccountComponent } from './components/user-account/user-account.component';
 
 const routes: Routes = [
   {
