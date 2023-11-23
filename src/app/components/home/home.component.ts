@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   }
 
   createChart() {
-
     var receiveExpenseChart = this.receiveExpenseChart?.nativeElement?.getContext('2d');
     var historyChart = this.historyChart?.nativeElement?.getContext('2d');
     if(this.expenseList && historyChart && receiveExpenseChart) {
@@ -58,6 +57,7 @@ export class HomeComponent implements OnInit {
 
         let value = this.expenseList?.filter(expense => expense.date.getMonth() == month && expense.date.getFullYear() == date.getFullYear());
         let totalValue = value?.reduce((acc, expense) => acc + expense.totalValue, 0);
+        totalValue = totalValue ? totalValue : 0;
         expenseToChart.month = date;
         expenseToChart.totalValue = totalValue;
         expenseToChartList.push(expenseToChart);
@@ -174,14 +174,17 @@ export class HomeComponent implements OnInit {
   }
 
   get totalValue(): number {
-    return (this.totalReceive - this.totalExpense);
+    let value = (this.totalReceive - this.totalExpense);
+    return value ? value : 0;
   }
 
   get totalExpense(): number {
-    return this.expenseList.filter(asset => asset.date.getMonth() + asset.installments >= new Date().getMonth()).reduce((acc, asset) => acc + asset.totalValue, 0);
+    let value = this.expenseList.filter(asset => asset.date.getMonth() + asset.installments >= new Date().getMonth()).reduce((acc, asset) => acc + asset.totalValue, 0);
+    return value ? value : 0;
   }
 
   get totalReceive(): number {
-    return this.receiveList.reduce((acc, category) => acc + category.totalValue, 0);
+    let value =  this.receiveList.reduce((acc, category) => acc + category.totalValue, 0);
+    return value ? value : 0;
   }
 }
