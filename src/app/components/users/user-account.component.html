@@ -1,0 +1,38 @@
+<!-- user-account.component.html -->
+
+<div class="user-account-container">
+    <form [formGroup]="userAccountForm" (ngSubmit)="onSubmit()">
+  
+      <!-- Nome do Usuário -->
+      <div class="form-group">
+        <label for="userName">Nome</label>
+        <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Digite seu nome">
+      </div>
+  
+      <!-- E-mail -->
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Digite seu e-mail">
+      </div>
+  
+      <!-- Senha -->
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Digite sua senha">
+      </div>
+  
+      <!-- Confirmação de Senha -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirme a Senha</label>
+        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirme sua senha">
+      </div>
+  
+      <!-- Botões de Ação -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+      </div>
+  
+    </form>
+  </div>
+  

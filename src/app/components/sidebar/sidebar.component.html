@@ -6,22 +6,25 @@
                 <span class="material-symbols-outlined">
                     monitoring
                 </span>
-                <span class="visually-hidden">Icon-only</span>
             </a>
             <div class="d-flex flex-column flex-grow-1 justify-content-center">
                 <ul class="nav nav-pills nav-flush flex-column text-center">
-                    <li class="nav-item" *ngFor="let menuItem of menuItems">
-                        <a class="nav-link mx-0" [routerLink]="[menuItem.path]" routerLinkActive="active" matTooltip="{{ menuItem.title }}">
-                            <i class="material-icons">{{menuItem.icon}}</i>
+                    <li class="nav-item" *ngFor="let item of centerItems">
+                        <a class="nav-link mx-0" [routerLink]="[item.path]" routerLinkActive="active" matTooltip="{{ item.title }}">
+                            <i class="material-icons">{{item.icon}}</i>
                         </a>
                     </li>
                 </ul>
             </div>
-            <a [routerLink]="'users'" class="d-block p-3 link-body-emphasis text-decoration-none text-center" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-original-title="Icon-only">
-                <i class="material-icons">person</i>
-                <span class="visually-hidden">Icon-only</span>
-            </a>
+            <div class="d-flex flex-column justify-content-end">
+                <ul class="nav nav-pills nav-flush flex-column text-center">
+                    <li class="nav-item" *ngFor="let item of bottomItems">
+                        <a class="nav-link mx-0" [routerLink]="[item.path]" routerLinkActive="active" matTooltip="{{ item.title }}">
+                            <i class="material-icons">{{item.icon}}</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 

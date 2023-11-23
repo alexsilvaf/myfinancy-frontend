@@ -10,8 +10,9 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/home', title: 'Página Inicial',  icon: 'home', class: '' },
-  { path: '/management', title: 'Gerenciar Ativos',  icon: 'manage_search', class: '' },
+  { path: 'home', title: 'Página Inicial',  icon: 'home', class: '' },
+  { path: 'management', title: 'Gerenciar Ativos',  icon: 'manage_search', class: '' },
+  { path: 'account', title: 'Conta',  icon: 'account_circle', class: '' },
 ]
 
 @Component({
@@ -22,11 +23,15 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent {
 
   menuItems: any[];
+  centerItems: any[];
+  bottomItems: any[];
 
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = ROUTES;
+    this.centerItems = this.menuItems.filter(menuItem => menuItem.path !== 'account');
+    this.bottomItems = this.menuItems.filter(menuItem => menuItem.path === 'account');
   }
   
   isMobileMenu() {
