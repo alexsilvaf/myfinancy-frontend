@@ -48,7 +48,17 @@ table{
 }
 
 .custom-border-right {
-    border-right: 1px solid #dee2e6; /* Ajuste a cor conforme necessário */
+    border-right: 1px solid #dee2e6;
+
+    @media (max-width: 768px) { /* 768px é o breakpoint para md no Bootstrap */
+        border-right: 0px;
+        border-bottom: 1px solid #dee2e6 !important;
+        padding-bottom: 1.5rem !important;
+    }
+}
+
+.pointer{
+    cursor: pointer;
 }
 
 .mt-lg-0 {
@@ -59,12 +69,4 @@ table{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-@media (max-width: 768px) { /* 768px é o breakpoint para md no Bootstrap */
-    .custom-border-right {
-        border-right: 0px;
-        border-bottom: 1px solid #dee2e6 !important;
-        padding-bottom: 1.5rem !important;
-    }
 }

@@ -104,7 +104,19 @@
         <div class="row col-lg-12 overflow-x-auto">
             <div class="col-lg-6 ps-lg-0">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header bg-body-tertiary text-primary d-flex">
+                        <div class="col-11 text-center align-self-center">
+                            <h5 class="fw-bold">Receitas</h5>
+                        </div>
+                        <div class="col-1 align-self-center">
+                            <h5 class="mb-0">
+                                <a class="nav-link mx-0 pointer align-self-center" (click)="navigateToManagment('receive')" routerLinkActive="active" matTooltip="Adicionar">
+                                    <i class="material-icons fw-bold" style="vertical-align: middle">add</i>
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="card-body py-0">
                         <div class="overflow-y-auto">
                             <table mat-table [dataSource]="receiveList">
                                 <ng-container matColumnDef="date">
@@ -144,46 +156,59 @@
             </div>
             <div class="col-lg-6 pe-lg-0 mt-4 mt-md-0">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header bg-body-tertiary text-primary d-flex">
+                        <div class="col-11 text-center align-self-center">
+                            <h5 class="fw-bold">Despesas</h5>
+                        </div>
+                        <div class="col-1 align-self-center">
+                            <h5 class="mb-0">
+                                <a class="nav-link mx-0 pointer align-self-center" (click)="navigateToManagment('expense')" routerLinkActive="active" matTooltip="Adicionar">
+                                    <i class="material-icons fw-bold" style="vertical-align: middle">add</i>
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="card-body py-0">
                         <div class="overflow-y-auto">
-                                <table mat-table [dataSource]="expenseList">
-                                    <ng-container matColumnDef="date">
-                                        <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Data </th>
-                                        <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.date | date: 'MM/yy'}} </td>
-                                    </ng-container>
+                            <table mat-table [dataSource]="expenseList">
+                                <ng-container matColumnDef="date">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Data </th>
+                                    <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.date | date: 'MM/yy'}} </td>
+                                <td mat-footer-cell *matFooterCellDef> Adicionar </td>
+                                </ng-container>
                                   
-                                    <!-- Name Column -->
-                                    <ng-container matColumnDef="name">
-                                        <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Nome </th>
-                                        <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.name}} </td>
-                                    </ng-container>
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Nome </th>
+                                    <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.name}} </td>
+                                </ng-container>
                                   
-                                    <!-- Weight Column -->
-                                    <ng-container matColumnDef="class">
-                                        <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Classe </th>
-                                        <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.class}} </td>
-                                    </ng-container>
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="class">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Classe </th>
+                                  <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.class}} </td>
+                                </ng-container>
                                   
-                                    <!-- Symbol Column -->
-                                    <ng-container matColumnDef="installments">
-                                        <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Parcelas </th>
-                                        <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.installments | numberValue}} </td>
-                                    </ng-container>
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="installments">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Parcelas </th>
+                                    <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.installments | numberValue}} </td>
+                                </ng-container>
                                   
-                                    <!-- Symbol Column -->
-                                    <ng-container matColumnDef="totalValue">
-                                        <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Valor </th>
-                                        <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.totalValue | currencyValue}} </td>
-                                    </ng-container>
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="totalValue">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Valor </th>
+                                    <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.totalValue | currencyValue}} </td>
+                                </ng-container>
 
-                                    <tr mat-header-row *matHeaderRowDef="['date', 'name', 'class', 'installments', 'totalValue']; sticky: true"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: ['date', 'name', 'class', 'installments', 'totalValue'];"></tr>
-                                      
-                                    <!--empty message-->
-                                    <tr class="mat-row" *matNoDataRow>
-                                        <td colspan="5" class="max-cell text-center" style="vertical-align: middle; height: 240px">Nenhum registro encontrado</td>
-                                    </tr>
-                                </table>
+                                <tr mat-header-row *matHeaderRowDef="['date', 'name', 'class', 'installments', 'totalValue']; sticky: true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: ['date', 'name', 'class', 'installments', 'totalValue'];"></tr>
+                                    
+                                <!--empty message-->
+                                <tr class="mat-row" *matNoDataRow>
+                                    <td colspan="5" class="max-cell text-center" style="vertical-align: middle; height: 240px">Nenhum registro encontrado</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
