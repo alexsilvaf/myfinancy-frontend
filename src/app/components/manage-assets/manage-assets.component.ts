@@ -31,6 +31,8 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
     name: [''],
     category: [''],
     class: [''],
+    minValue: [''],
+    maxValue: [''],
     dateRange: this.range
   });
 

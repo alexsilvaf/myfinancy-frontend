@@ -24,90 +24,56 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-md-flex align-items-center mb-3">
-                            <div class="col-12 col-md-10">
-                                <div class="row">
-                                    <form class="d-flex" [formGroup]="filterGroup" (ngSubmit)="onSubmit(filterGroup.value, filterGroup.valid)">
-                                        <div class="col-12 col-md-2 my-2 my-md-0 mx-3">
-                                            <mat-form-field appearance="outline" class="col-12" [formGroup]="range">
-                                                <mat-date-range-input [rangePicker]="picker">
-                                                    <input matStartDate formControlName="start" placeholder="Data Inicial">
-                                                    <input matEndDate formControlName="end" placeholder="Data Final">
-                                                </mat-date-range-input>
-                                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                                <mat-date-range-picker #picker></mat-date-range-picker>
-                                          </mat-form-field>
-                                        </div>
-                                        <div class="col-12 col-md-3 my-2 my-md-0 pe-2">
-                                            <mat-form-field formControlName="name" appearance="outline" class="w-100 input-text">
-                                                <mat-label>Nome</mat-label>
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-12 col-md-2 my-2 my-md-0 px-2">
-                                            <mat-form-field appearance="outline" class="w-100 input-text">
-                                                <mat-label>Classe</mat-label>
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-12 col-md-2 my-2 my-md-0 px-2">
-                                            <mat-form-field appearance="outline" class="w-100 input-text">
-                                                <mat-label>Valor Mínimo</mat-label>
-                                                <input type="text" matInput doubleNumber [maxValue]="9999999">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-12 col-md-2 my-2 my-md-0 ps-2">
-                                            <mat-form-field appearance="outline" class="w-100 input-text">
-                                                <mat-label>Valor Máximo</mat-label>
-                                                <input type="text" matInput doubleNumber [maxValue]="9999999">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-12 col-md-2 d-flex my-2 my-md-0 justify-content-center align-items-center">
-                                          <button id="filter" type="submit" mat-button mat-raised-button color="primary">Buscar</button>
-                                        </div>
-                                      </form>
-                                    <!-- <div class="col-12 col-md-3 my-2 my-md-0">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                                <div class="col-12">
+                                    <form class="d-md-flex" [formGroup]="filterGroup" (ngSubmit)="onSubmit(filterGroup.value, filterGroup.valid)">
+                                        <div class="col-12 col-md-2 my-2 my-md-0 pe-md-2">
+                                        <mat-form-field appearance="outline" class="col-12" [formGroup]="range">
+                                            <mat-date-range-input [rangePicker]="picker">
                                                 <input matStartDate formControlName="start" placeholder="Data Inicial">
                                                 <input matEndDate formControlName="end" placeholder="Data Final">
                                             </mat-date-range-input>
                                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                             <mat-date-range-picker #picker></mat-date-range-picker>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-12 col-md-3 my-2 my-md-0">
-                                        <mat-form-field appearance="outline" class="w-100 input-text">
-                                            <mat-label>Nome</mat-label>
-                                            <input matInput>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-12 col-md-2 my-2 my-md-0">
-                                        <mat-form-field appearance="outline" class="w-100 input-text">
-                                            <mat-label>Classe</mat-label>
-                                            <input matInput>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-12 col-md-2 my-2 my-md-0">
-                                        <mat-form-field appearance="outline" class="w-100 input-text">
-                                            <mat-label>Valor Mínimo</mat-label>
-                                            <input type="text" matInput doubleNumber [maxValue]="9999999">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-12 col-md-2 my-2 my-md-0">
-                                        <mat-form-field appearance="outline" class="w-100 input-text">
-                                            <mat-label>Valor Máximo</mat-label>
-                                            <input type="text" matInput doubleNumber [maxValue]="9999999">
-                                        </mat-form-field>
-                                    </div> -->
-                                </div>
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-md-3 my-2 my-md-0 px-md-2">
+                                            <mat-form-field appearance="outline" class="w-100 input-text">
+                                                <mat-label>Nome</mat-label>
+                                                <input formControlName="name" matInput>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-md-2 my-2 my-md-0 px-md-2">
+                                            <mat-form-field appearance="outline" class="w-100 input-text">
+                                                <mat-label>Classe</mat-label>
+                                                <input formControlName="class" matInput>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-md-2 my-2 my-md-0 px-md-2">
+                                            <mat-form-field appearance="outline" class="w-100 input-text">
+                                                <mat-label>Valor Mínimo</mat-label>
+                                                <input formControlName="minValue" type="text" matInput doubleNumber [maxValue]="9999999">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-md-2 my-2 my-md-0 ps-md-2">
+                                            <mat-form-field appearance="outline" class="w-100 input-text">
+                                                <mat-label>Valor Máximo</mat-label>
+                                                <input type="text" formControlName="maxValue" matInput doubleNumber [maxValue]="9999999">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-md-1 d-flex my-2 my-md-0 justify-content-center align-items-center">
+                                          <button id="filter" type="submit" mat-button mat-raised-button color="primary">Buscar</button>
+                                        </div>
+                                      </form>
                             </div>
                         </div>
-                        <div class="d-flex my-3 overflow-x-auto">
-                            <button mat-button *ngFor="let type of classTypeList"
-                                (click)="toggleSelection(type)"
-                                [ngClass]="{'selected': isSelected(type), 'not-selected': !isSelected(type)}">
-                                {{ type }}
-                            </button>
+                        <div class="overflow-x-auto py-3">
+                            <div class="d-flex">
+                                <div *ngFor="let type of classTypeList" class="d-flex">
+                                    <span (click)="toggleSelection(type)" [ngClass]="{'selected': isSelected(type), 'not-selected': !isSelected(type)}">
+                                        {{ type }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <mat-tab-group (selectedTabChange)="onTabChanged($event)"
                             [selectedIndex]="getSelectedIndex">
