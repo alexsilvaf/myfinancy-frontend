@@ -1,0 +1,220 @@
+<div class="container">
+  <div class="row">
+
+    <!-- Sidenav START -->
+    <div class="col-lg-3">
+
+      <!-- Advanced filter responsive toggler START -->
+      <!-- Divider -->
+      <div class="d-flex align-items-center mb-4 d-lg-none">
+        <button class="border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="btn btn-light"><i class="material-icons">menu</i></span>
+          <span class="h6 mb-0 fw-bold d-lg-none ms-2">Configurações</span>
+        </button>
+      </div>
+      <!-- Advanced filter responsive toggler END -->
+
+      <nav class="navbar navbar-light navbar-expand-lg mx-0">
+        <div class="offcanvas offcanvas-start w-75" tabindex="-1" id="offcanvasNavbar">
+          <!-- Offcanvas header -->
+          <div class="offcanvas-header">
+            <button type="button" class="btn-close text-reset ms-auto" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+          </div>
+
+          <!-- Offcanvas body -->
+          <div class="offcanvas-body p-0">
+            <!-- Card START -->
+            <div class="card w-100">
+              <!-- Card body START -->
+              <div class="card-body">
+
+                <!-- Side Nav START -->
+                <ul class="nav nav-tabs nav-pills nav-pills-soft flex-column fw-bold gap-2 border-0" role="tablist">
+                  <li class="nav-item" data-bs-dismiss="offcanvas" role="presentation">
+                    <a class="nav-link d-flex mb-0 align-items-center active" href="#nav-setting-tab-1"
+                      data-bs-toggle="tab" aria-selected="true" role="tab">
+                      <i class="material-icons pe-3">person</i>
+                      <span>Conta</span>
+                    </a>
+                  </li>
+                  <li class="nav-item" data-bs-dismiss="offcanvas" role="presentation">
+                    <a class="nav-link d-flex mb-0 align-items-center" href="#nav-setting-tab-2" data-bs-toggle="tab"
+                      aria-selected="false" tabindex="-1" role="tab">
+                      <i class="material-icons pe-3">lock</i>
+                      <span>Privacidade e Segurança</span>
+                    </a>
+                  </li>
+                  <li class="nav-item" data-bs-dismiss="offcanvas" role="presentation">
+                    <a class="nav-link d-flex mb-0 align-items-center" href="#nav-setting-tab-3" data-bs-toggle="tab"
+                      aria-selected="false" tabindex="-1" role="tab">
+                      <i class="material-icons pe-3">delete_forever</i>
+                      <span>Fechar Conta</span>
+                    </a>
+                  </li>
+                </ul>
+                <!-- Side Nav END -->
+
+              </div>
+              <!-- Card body END -->
+            </div>
+            <!-- Card END -->
+          </div>
+          <!-- Offcanvas body -->
+        </div>
+      </nav>
+    </div>
+    <!-- Sidenav END -->
+
+    <!-- Main content START -->
+    <div class="col-lg-6 vstack gap-4">
+      <!-- Setting Tab content START -->
+      <div class="tab-content py-0 mb-0">
+
+        <!-- Account setting tab START -->
+        <div class="tab-pane show active fade" id="nav-setting-tab-1" role="tabpanel">
+          <!-- Account settings START -->
+          <div class="card mb-4">
+
+            <!-- Title START -->
+            <div class="card-header border-0 pb-0">
+              <h1 class="h5 card-title">Configurações da Conta</h1>
+            </div>
+            <!-- Card header START -->
+            <!-- Card body START -->
+            <div class="card-body">
+              <!-- Form settings START -->
+              <form class="row g-3">
+                <!-- First name -->
+                <div class="col-sm-8 col-lg-8">
+                  <label class="form-label">Nome Completo</label>
+                  <input type="text" class="form-control">
+                  <div data-lastpass-icon-root="true"
+                    style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;">
+                  </div>
+                </div>
+                <!-- Last name -->
+                <!-- Additional name -->
+                <div class="col-sm-4 col-lg-4">
+                  <label class="form-label">Apelido</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+                <!-- Birthday -->
+                <div class="col-lg-3">
+                  <label class="form-label">Data de Nascimento</label>
+                  <input type="text" class="form-control flatpickr flatpickr-input" readonly="readonly">
+                </div>
+                <!-- Phone number -->
+                <div class="col-sm-4">
+                  <label class="form-label">Email</label>
+                  <input type="text" class="form-control">
+                  <!-- Add new email -->
+                  <a class="btn btn-sm btn-dashed rounded mt-3" href="#!"> <i
+                      class="bi bi-plus-circle-dotted me-1"></i>Adicionar novo email</a>
+                </div>
+                <!-- Phone number -->
+                <div class="col-sm-5">
+                  <label class="form-label">Número de telefone</label>
+                  <input type="text" class="form-control">
+                  <!-- Add new number -->
+                  <a class="btn btn-sm btn-dashed rounded mt-3" href="#!"> <i
+                      class="bi bi-plus-circle-dotted me-1"></i>Adicionar novo contato</a>
+                </div>
+                <!-- Button  -->
+                <div class="col-12 text-end">
+                  <button type="submit" class="btn btn-sm btn-primary mb-0">Salvar alterações</button>
+                </div>
+              </form>
+              <!-- Settings END -->
+            </div>
+            <!-- Card body END -->
+          </div>
+          <!-- Account settings END -->
+
+        </div>
+        <!-- Privacy and safety tab START -->
+        <div class="tab-pane fade" id="nav-setting-tab-2" role="tabpanel">
+          <!-- Privacy and safety START -->
+          <div class="card">
+            <!-- Card header START -->
+            <div class="card-header border-0 pb-0">
+              <h5 class="card-title">Privacidade e segurança</h5>
+            </div>
+            <!-- Card header START -->
+            <!-- Card body START -->
+            <div class="card-body">
+              <!-- Privacy START -->
+              <ul class="list-group">
+
+                <!-- Privacy item -->
+                <li class="list-group-item d-md-flex justify-content-between align-items-start">
+                  <div class="me-md-3">
+                    <h6 class="mb-0">Alterar senha</h6>
+                  </div>
+                  <button class="btn mt-1 mt-md-0">Alterar</button>
+                </li>
+
+                <!-- Privacy item -->
+                <li class="list-group-item d-md-flex justify-content-between align-items-start">
+                  <div class="me-md-3">
+                    <h6 class="mb-0">Atividade de Login</h6>
+                  </div>
+                  <button class="btn btn-primary-soft btn-sm mt-1 mt-md-0" data-bs-toggle="modal"
+                    data-bs-target="#modalLoginActivity">Ver</button>
+                </li>
+
+                <!-- Privacy item -->
+                <li class="list-group-item d-md-flex justify-content-between align-items-start">
+                  <div class="me-md-3">
+                    <h6 class="mb-0">Linguagem do Sistema</h6>
+                    <p class="small mb-0">Português - BR</p>
+                  </div>
+                  <button class="btn btn-primary-soft btn-sm mt-1 mt-md-0">Alterar</button>
+                </li>
+              </ul>
+              <!-- Privacy END -->
+            </div>
+            <!-- Card body END -->
+          </div>
+          <!-- Privacy and safety END -->
+        </div>
+        <!-- Privacy and safety tab END -->
+
+        <!-- Close account tab START -->
+        <div class="tab-pane fade" id="nav-setting-tab-3" role="tabpanel">
+          <!-- Card START -->
+          <div class="card">
+            <!-- Card header START -->
+            <div class="card-header border-0 pb-0">
+              <h5 class="card-title">Deletar conta</h5>
+            </div>
+            <!-- Card header START -->
+            <!-- Card body START -->
+            <div class="card-body">
+              <!-- Delete START -->
+              <h6>Antes de ir...</h6>
+              <ul>
+                <li>Faça um backup dos seus dados <a href="#">Aqui</a> </li>
+                <li>Se você deletar sua conta, perderá todos os seus dados.</li>
+              </ul>
+              <div class="form-check form-check-md my-4">
+                <input class="form-check-input" type="checkbox" value="" id="deleteaccountCheck">
+                <label class="form-check-label" for="deleteaccountCheck">Sim, eu gostaria de deletar minha conta</label>
+              </div>
+              <a href="#" class="btn btn-success-soft btn-sm mb-2 mb-sm-0 me-2">Manter minha conta</a>
+              <a href="#" class="btn btn-danger btn-sm mb-0 ms-2">Deletar minha conta</a>
+              <!-- Delete END -->
+            </div>
+            <!-- Card body END -->
+          </div>
+          <!-- Card END -->
+        </div>
+        <!-- Close account tab END -->
+
+      </div>
+      <!-- Setting Tab content END -->
+    </div>
+
+  </div> <!-- Row END -->
+</div>
