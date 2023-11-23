@@ -41,6 +41,11 @@ mat-button-toggle-group {
     padding: .25rem .5rem;
     border: 1px solid rgba(144, 238, 144, 1);
     white-space: nowrap;
+    border-radius: 5px;
+}
+
+.selected:hover, .not-selected:hover {
+    cursor: pointer;
 }
 
 .selected {

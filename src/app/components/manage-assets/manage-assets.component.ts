@@ -22,19 +22,9 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
   selectedCategoryType: CategoryType;
   totalValuesByCategory: number[] = [];
   
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+  range: FormGroup;
 
-  filterGroup: FormGroup = this.fb.group({
-    name: [''],
-    category: [''],
-    class: [''],
-    minValue: [''],
-    maxValue: [''],
-    dateRange: this.range
-  });
+  filterGroup: FormGroup;
 
   totalAreaChart: any;
   colors = [];
@@ -62,9 +52,24 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
 
     this.assets = this.assetService.getAll();
 
+    this.filterGroup = this.fb.group({
+      name: [''],
+      category: [''],
+      class: [''],
+      minValue: [''],
+      maxValue: [''],
+      dateRange: this.range
+    });
+
+    let lastMonth = new Date();
+    lastMonth.setDate(lastMonth.getDate() - 30);
+
+    this.range = new FormGroup({
+      start: new FormControl<Date | null>(lastMonth),
+      end: new FormControl<Date | null>(new Date())
+    });
+
     sessionStorage.removeItem('savedState');
-    this.updateChartData();
-    this.updateAssetTypes();
   }
 
   ngAfterViewInit() {
