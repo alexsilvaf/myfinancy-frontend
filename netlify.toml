@@ -1,3 +1,0 @@
-[[plugins]]
-package = "@netlify/angular-runtime"
-enabled = false
