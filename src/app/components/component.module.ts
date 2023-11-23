@@ -7,16 +7,22 @@ import { MaterialModule } from 'app/material/material/material.module';
 import { NgChartsModule } from 'ng2-charts';
 import { CurrencyValuePipe } from 'app/pipes/currency-value.pipe';
 import { NumberValuePipe } from 'app/pipes/number-value.pipe';
+import { ManageAssetsComponent } from './manage-assets/manage-assets.component';
+import { DoubleNumberDirective } from 'app/directives/double-number.directive';
+import { IntegerNumberDirective } from 'app/directives/integer-number.directive';
 
 const COMPONENTS = [
   HomeComponent,
   SidebarComponent,
+  ManageAssetsComponent,
 ]
 
 @NgModule({
   declarations: [
     CurrencyValuePipe,
     NumberValuePipe,
+    DoubleNumberDirective,
+    IntegerNumberDirective,
     COMPONENTS,
   ],
   imports: [
