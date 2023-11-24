@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="overflow-x-auto py-3">
-                            <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-md-center">
                                 <div *ngFor="let type of classTypeList" class="d-flex">
                                     <span (click)="toggleSelection(type)"
                                         [ngClass]="{'selected': isSelected(type), 'not-selected': !isSelected(type)}">
