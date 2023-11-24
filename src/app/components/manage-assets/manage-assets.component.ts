@@ -69,6 +69,7 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
       end: new FormControl<Date | null>(new Date())
     });
 
+    this.updateAssetTypes();
     sessionStorage.removeItem('savedState');
   }
 
@@ -87,8 +88,28 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  get activeCategoryType() {
+    return this.categoryTypeList[this.getSelectedIndex];
+  }
+
+  get assetsInCategory() {
+    return this.assets.filter(asset => asset.type === this.selectedCategoryType);
+  }
+
   get getSelectedIndex() {
     return this.categoryTypeList.indexOf(this.selectedCategoryType);
+  }
+
+  get isMobile() {
+    return window.innerWidth <= 991;
+  }
+
+  get tableColumns() {
+    if(this.isMobile){
+      return ['date', 'name', 'amount', 'star'];
+    } else {
+      return ['date', 'name', 'class', 'installments', 'amount', 'star'];
+    }
   }
 
   onTabChanged(event: MatTabChangeEvent) {
@@ -149,6 +170,17 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
         return ['rgb(200, 9, 9)', 'rgba(0, 0, 0, 0)'];
     }
   }
+
+  getTotalValueByClass(classType: ClassType) {
+    const total = this.assets
+      .filter(asset => asset.type === this.selectedCategoryType && asset.class === classType)
+      .reduce((acc, asset) => acc + asset.amount, 0);
+    return total;
+  }
+
+  isSelected(type: string): boolean {
+    return this.selectedValues.includes(type);
+  }
   
   updateChartData() {
     // Calcula o total geral
@@ -189,13 +221,6 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getTotalValueByClass(classType: ClassType) {
-    const total = this.assets
-      .filter(asset => asset.type === this.selectedCategoryType && asset.class === classType)
-      .reduce((acc, asset) => acc + asset.amount, 0);
-    return total;
-  }
-
   updateAssetTypes() {
     this.classTypeList = Object.values(ClassType);
     if(this.selectedCategoryType === CategoryType.RECEIVE) {
@@ -214,10 +239,6 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
       this.selectedValues.push(type); // Adicione se não estiver selecionado
     }
     this.updateChartData();
-  }
-
-  isSelected(type: string): boolean {
-    return this.selectedValues.includes(type);
   }
 
   addRow() {
@@ -307,6 +328,13 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSubmit(form, isValid) {
+    console.log(form)
+    if (isValid) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
   validateEditForm(): boolean {
     let isEditMode = this.assets.find(asset => asset.editMode);
     if (isEditMode && (!this.edittedAsset?.name || !this.edittedAsset?.type || !this.edittedAsset?.class)) {
@@ -319,13 +347,6 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
       return true;
     }
     return false;
-  }
-
-  onSubmit(form, isValid) {
-    console.log(form)
-    if (isValid) {
-      this.router.navigate(['/dashboard']);
-    }
   }
 
 }

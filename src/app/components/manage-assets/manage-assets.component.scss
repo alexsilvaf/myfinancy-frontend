@@ -1,11 +1,15 @@
-.icon-font {
-    font-size: 20px;
+.custom-border-right {
+    border-right: 1px solid #dee2e6; /* Ajuste a cor conforme necessário */
 }
 
 .currency-prefix {
     display: inline-block;
     vertical-align: middle;
     margin-right: 8px;
+}
+
+.icon-font {
+    font-size: 20px;
 }
 
 ::ng-deep .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align
@@ -60,12 +64,25 @@ mat-button-toggle-group {
     border-color: rgb(10, 200, 144);
 }
 
-.custom-border-right {
-    border-right: 1px solid #dee2e6; /* Ajuste a cor conforme necessário */
-}
-
 :host ::ng-deep .mat-mdc-button-touch-target  {
     height: 100% !important;
+}
+
+th#buttonActions {
+    width: 100px;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+    height: 100%;
+    width: 6px;
+}
+
+.overflow-y-auto.has-scrollbar {
+    justify-content: flex-start !important;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color: #ccc;
 }
 
 @media (max-width: 768px) { /* 768px é o breakpoint para md no Bootstrap */
@@ -77,5 +94,13 @@ mat-button-toggle-group {
 
     button#filter{
         width: 100%;
+    }
+
+    th#buttonActions {
+        width: 50px;
+    }
+
+    .overflow-y-auto::-webkit-scrollbar {
+        width: 3px;
     }
 }
