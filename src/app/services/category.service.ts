@@ -35,6 +35,9 @@ export class CategoryService {
       let totalValue = 0;
       const installments = classType === ClassType.SALARY || classType === ClassType.INVESTMENT ? null : this.randomInt(1, 12);
       if(type === CategoryType.EXPENSE && date.getMonth() + installments >= this.currentDateThisMonth().getMonth()){
+        if(maxReceiveValue == 0){
+          continue;
+        }
         totalValue = this.randomInt(maxReceiveValue/(maxReceiveValue / 10), maxReceiveValue);
         if(totalValue > maxReceiveValue){
          continue;
