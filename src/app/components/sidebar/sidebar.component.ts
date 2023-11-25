@@ -25,21 +25,51 @@ export class SidebarComponent {
   menuItems: any[];
   centerItems: any[];
   bottomItems: any[];
+  readonly desktopMenuItems = [...ROUTES];
+
+  mobileMenuItems = [];
 
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES;
+    this.adjustMenuItemsOrder();
+    this.setOtherItems();
+  }
+
+  setOtherItems() {
     this.centerItems = this.menuItems.filter(menuItem => menuItem.path !== 'account');
     this.bottomItems = this.menuItems.filter(menuItem => menuItem.path === 'account');
   }
-  
-  isMobileMenu() {
-      return $(window).width() <= 991;
+
+  adjustMenuItemsOrder() {
+    if (this.isMobileMenu()) {
+      this.mobileMenuItems = this.moveHomeToMiddle(this.desktopMenuItems);
+      this.menuItems = this.mobileMenuItems;
+    } else {
+      this.menuItems = this.desktopMenuItems;
+    }
+    this.setOtherItems();
   }
 
-  @HostListener('window:resize', ['$event'])
+  moveHomeToMiddle(items) {
+    const middleIndex = Math.floor(items.length / 2);
+    const newItems = [...items];
+    const homeIndex = newItems.findIndex(item => item.path === 'home');
+
+    if (homeIndex !== middleIndex) {
+      const [homeItem] = newItems.splice(homeIndex, 1);
+      newItems.splice(middleIndex, 0, homeItem);
+    }
+
+    return newItems;
+  }
+
+  isMobileMenu() {
+    return $(window).width() <= 991;
+  }
+
+  @HostListener('window:resize')
   onResize(event) {
-    this.isMobileMenu();
+    this.adjustMenuItemsOrder();
   }
 }
