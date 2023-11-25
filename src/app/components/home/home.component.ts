@@ -179,7 +179,8 @@ export class HomeComponent implements OnInit {
   }
 
   get totalExpense(): number {
-    let value = this.expenseList.filter(asset => asset.date.getMonth() + asset.installments >= new Date().getMonth()).reduce((acc, asset) => acc + asset.totalValue, 0);
+    let now = new Date();
+    let value = this.expenseList.filter(asset => asset.date.getMonth() + asset.installments >= now.getMonth() && asset.date.getFullYear() == now.getFullYear()).reduce((acc, asset) => acc + asset.totalValue, 0);
     return value ? value : 0;
   }
 
