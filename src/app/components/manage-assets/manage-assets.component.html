@@ -143,11 +143,15 @@
                                         <mat-menu #menu="matMenu">
                                             <ng-template matMenuContent let-name="name">
                                                 <button mat-menu-item (click)="editRow(element)">
-                                                    <mat-icon class="icon-font text-warning">edit</mat-icon>
+                                                    <mat-icon class="icon-font text-primary me-1">info</mat-icon>
+                                                    <span class="text-primary">Detalhes</span>
+                                                </button>
+                                                <button mat-menu-item (click)="editRow(element)">
+                                                    <mat-icon class="icon-font text-warning me-1">edit</mat-icon>
                                                     <span class="text-warning">Editar</span>
                                                 </button>
                                                 <button mat-menu-item (click)="deleteRow(element)">
-                                                    <mat-icon class="icon-font text-danger">delete</mat-icon>
+                                                    <mat-icon class="icon-font text-danger me-1">delete</mat-icon>
                                                     <span class="text-danger">Deletar</span>
                                                 </button>
                                             </ng-template>
