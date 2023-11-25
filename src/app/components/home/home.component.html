@@ -169,7 +169,7 @@
                     </div>
                     <div class="card-body py-0">
                         <div class="overflow-y-auto">
-                            <table mat-table [dataSource]="expenseList">
+                            <table mat-table [dataSource]="expenseListFiltered">
                                 <ng-container matColumnDef="date">
                                     <th mat-header-cell *matHeaderCellDef class="text-primary fw-bold"> Data </th>
                                     <td mat-cell class="no-wrap-cell" *matCellDef="let element"> {{element.date | date: 'MM/yy'}} </td>

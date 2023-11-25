@@ -165,6 +165,11 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/management'], { state: { type: categotyType } });
   }
 
+  get expenseListFiltered(): CategoryChartModel[] {
+    let now = new Date();
+    return this.expenseList.filter(asset => asset.date.getMonth() + asset.installments >= now.getMonth() && asset.date.getFullYear() == now.getFullYear());
+  }
+
   get hasReceiveExpenseChartData(): boolean {
     return this.receiveList && this.receiveList.length > 0;
   }
