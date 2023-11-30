@@ -16,6 +16,7 @@
           "skipTests": true
         },
         "@schematics/angular:directive": {
+          "path": "src/app/directives",
           "skipTests": true
         },
         "@schematics/angular:guard": {
@@ -25,12 +26,14 @@
           "skipTests": true
         },
         "@schematics/angular:pipe": {
+          "path": "src/app/pipes",
           "skipTests": true
         },
         "@schematics/angular:resolver": {
           "skipTests": true
         },
         "@schematics/angular:service": {
+          "path": "src/app/services",
           "skipTests": true
         }
       },
