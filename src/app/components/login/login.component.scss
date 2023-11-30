@@ -1,0 +1,13 @@
+.login-form{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    padding: 16px;
+    padding-top: 96px;
+    align-items: flex-start;
+    background-color: #fff;
+}
+
+.login-form > fieldset {
+    width: 384px;
+}

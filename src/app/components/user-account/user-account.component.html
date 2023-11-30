@@ -122,8 +122,9 @@
                       class="bi bi-plus-circle-dotted me-1"></i>Adicionar novo contato</a>
                 </div>
                 <!-- Button  -->
-                <div class="col-12 text-end">
-                  <button type="submit" class="btn btn-sm btn-primary mb-0">Salvar alterações</button>
+                <div class="col-12 d-flex flex-wrap justify-content-end mt-5">
+                    <button type="submit" class="btn btn-sm btn-primary mx-1 mb-0">Salvar alterações</button>
+                    <button (click)="logout()" class="btn btn-sm btn-danger mb-0">Deslogar</button>
                 </div>
               </form>
               <!-- Settings END -->

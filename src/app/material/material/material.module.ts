@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 
 const MATERIAL_COMPONENTS = [
   FormsModule,
@@ -29,6 +31,8 @@ const MATERIAL_COMPONENTS = [
   MatButtonModule,
   BrowserAnimationsModule,
   MatMenuModule,
+  MatCardModule,
+  MatDividerModule,
 ]
 
 @NgModule({
