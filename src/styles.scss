@@ -2,15 +2,8 @@ $success: rgb(0, 166, 125);
 
 // Importa o restante dos estilos do Bootstrap
 @import "/node_modules/bootstrap/scss/bootstrap";
-
-@font-face {
-    font-family: 'Proxima Nova';
-    font-style: normal;
-    font-weight: 400;
-    src: url('/path-to-fonts/ProximaNova-Regular.woff2') format('woff2'),
-         url('/path-to-fonts/ProximaNova-Regular.woff') format('woff');
-}
   
 body {
-    font-family: 'Proxima Nova', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
 }  
