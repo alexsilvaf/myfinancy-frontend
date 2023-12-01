@@ -7,6 +7,9 @@ import { CategoryType } from 'app/enums/category-type';
 import { ClassType } from 'app/enums/class-type';
 import { AssetService } from 'app/services/asset.service';
 import { Chart, registerables } from 'chart.js';
+import { ManageAssetModalComponent } from '../manage-asset-modal/manage-asset-modal.component';
+import { ActionType } from 'app/enums/action-type';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manage-assets',
@@ -36,6 +39,7 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
     private assetService: AssetService,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private fb: FormBuilder) { }
 
@@ -242,54 +246,24 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
   }
 
   addRow() {
-    let assetOnEditMode = this.assets.find(asset => asset.editMode);
-    if (assetOnEditMode) {
-      if (this.validateEditForm()) {
-        return;
-      } else {
-        this.snackBar.open('Salve ou cancele a edição do ativo atual.', 'Fechar', {
-          duration: 3000, // Duração em milissegundos. A mensagem desaparecerá após esse tempo.
-          verticalPosition: 'bottom', // 'top' para exibir no topo
-          horizontalPosition: 'right', // 'start' ou 'end' para exibir à esquerda ou à direita
-        });
-      }
-      return;
-    }
-
-    this.assets.push({
-      id: null,
-      date: new Date(),
-      name: '',
+    const newAsset = {
+      editMode: true,
       type: this.selectedCategoryType,
-      class: null,
-      installments: 0,
+      name: '',
+      class: '',
       amount: 0,
-      editMode: true
-    });
-    this.edittedAsset = Object.assign({}, this.assets[this.assets.length - 1]);
-
-    setTimeout(() => {
-      if (this.nameInput) {
-        this.nameInput.nativeElement.focus();
-      }
-    });
+      installments: 0,
+      date: new Date()
+    };
+    this.openModal(newAsset, ActionType.CREATE);
   }
 
+  detailsRow(row) {
+    this.openModal(row, ActionType.INFO);
+  }
 
   editRow(row) {
-    if (this.validateEditForm()) {
-      return;
-    }
-    this.assets?.map(asset => asset.editMode = false);
-
-    this.edittedAsset = Object.assign({}, row);
-    row.editMode = true;
-    //timeSet
-    setTimeout(() => {
-      if (this.nameInput) {
-        this.nameInput.nativeElement.focus();
-      }
-    }, 0);
+    this.openModal(row, ActionType.EDIT);
   }
 
   deleteRow(row) {
@@ -328,8 +302,14 @@ export class ManageAssetsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  openModal(row: any, type: ActionType){
+    this.dialog.open(ManageAssetModalComponent, {
+      width: '500px',
+      data: { actionType: type, asset: row }
+    });
+  }
+
   onSubmit(form, isValid) {
-    console.log(form)
     if (isValid) {
       this.router.navigate(['/dashboard']);
     }

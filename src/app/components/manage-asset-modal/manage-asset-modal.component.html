@@ -1,0 +1,46 @@
+<div class=p-3>
+    <header class="mb-2">
+        <h4>{{title}}</h4>
+    </header>
+    <form class="mt-3" [formGroup]="assetForm" (ngSubmit)="onSubmit()">
+        <div class="d-flex flex-wrap flex-grow-1">
+            <mat-form-field appearance="outline" class="col-12 col-md-6 pe-md-2 mb-3">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="name" type="text" [readonly]="isDetailModal">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-6 ps-md-2 mb-3">
+                <mat-label>Data</mat-label>
+                <input matInput formControlName="date" [matDatepicker]="datepicker" [readonly]="isDetailModal">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="datepicker" *ngIf="!isDetailModal"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-6 pe-md-2 mb-3">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type" *ngIf="!isDetailModal">
+                    <mat-option *ngFor="let type of categoryTypeList" [value]="type">{{type}}</mat-option>
+                </mat-select>
+                <input matInput formControlName="type" readonly *ngIf="isDetailModal">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-6 ps-md-2 mb-3">
+                <mat-label>Classe</mat-label>
+                <mat-select formControlName="class" *ngIf="!isDetailModal">
+                    <mat-option *ngFor="let class of classTypeList" [value]="class">{{class}}</mat-option>
+                </mat-select>
+                <input matInput formControlName="class" readonly *ngIf="isDetailModal">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-9 pe-md-2 mb-3">
+                <mat-label>Valor</mat-label>
+                <input type="text" formControlName="amount" matInput doubleNumber [maxValue]="9999999" [readonly]="isDetailModal">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-3 ps-md-2 mb-3">
+                <mat-label>Parcelas</mat-label>
+                <input matInput formControlName="installments" [maxValue]="999" integerNumber type="text" [readonly]="isDetailModal">
+            </mat-form-field>
+            <!--Submit-->
+            <div class="col-12 d-flex justify-content-end" *ngIf="!isDetailModal">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!assetForm.valid">Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -12,6 +12,7 @@ import { DoubleNumberDirective } from 'app/directives/double-number.directive';
 import { IntegerNumberDirective } from 'app/directives/integer-number.directive';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { LoginComponent } from './login/login.component';
+import { ManageAssetModalComponent } from './manage-asset-modal/manage-asset-modal.component';
 
 const COMPONENTS = [
   HomeComponent,
@@ -19,6 +20,7 @@ const COMPONENTS = [
   ManageAssetsComponent,
   UserAccountComponent,
   LoginComponent,
+  ManageAssetModalComponent,
 ]
 
 @NgModule({

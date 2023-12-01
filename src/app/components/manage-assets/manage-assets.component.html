@@ -96,7 +96,7 @@
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="text-center text-secondary bg-body-tertiary fw-bold">Registro de {{activeCategoryType}}</h3>
-                            <button mat-icon-button>
+                            <button mat-icon-button (click)="addRow()">
                                 <mat-icon class="icon-font">add</mat-icon>
                             </button>
                         </div>
@@ -142,7 +142,7 @@
                                         </button>
                                         <mat-menu #menu="matMenu">
                                             <ng-template matMenuContent let-name="name">
-                                                <button mat-menu-item (click)="editRow(element)">
+                                                <button mat-menu-item (click)="detailsRow(element)">
                                                     <mat-icon class="icon-font text-primary me-1">info</mat-icon>
                                                     <span class="text-primary">Detalhes</span>
                                                 </button>
