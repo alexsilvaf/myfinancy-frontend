@@ -1,0 +1,6 @@
+<div class="d-flex w-100">
+    <app-sidebar></app-sidebar>
+    <div class="w-100 py-5 overflow" [ngStyle]="{'margin-bottom': isMobileMenu ? '60px' : '0'}">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

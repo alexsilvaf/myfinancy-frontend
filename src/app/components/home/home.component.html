@@ -1,7 +1,7 @@
 <div class="main-content py-0">
     <!-- Indicators Area -->
     <div class="d-flex justify-content-center flex-wrap col-lg-12">
-        <div class="d-flex justify-content-between flex-wrap col-lg-9 mx-3">
+        <div class="d-flex justify-content-center flex-wrap col-lg-9 mx-3 col-11">
             <div class="card col-md-3 col-12 mb-3">
                 <div class="card-body text-center d-flex flex-column">
                     <div class="w-100 d-flex align-items-center">
@@ -11,40 +11,6 @@
                     </div>
                     <span
                         class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0">{{totalValue | currencyValue}}</span>
-                </div>
-            </div>
-            <div class="card col-md-3 col-12 mb-3">
-                <div class="card-body text-center d-flex align-items-center">
-                    <div class="col-11">
-                        <div class="w-100 d-flex align-items-center">
-                            <div class="flex-grow-1 text-center">
-                                <span class="mat-title text-primary ml-4 fw-bold">Receita do Mês</span>
-                            </div>
-                        </div>
-                        <span class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0 text-success">{{totalReceive | currencyValue}}</span>
-                    </div>
-                    <div class="col-1">
-                        <div class="cursor-pointer d-flex align-items-center justify-content-center" (click)="navigateToManagment('receive')">
-                            <i class="material-icons material-symbols-outlined text-primary" style="font-size: 20px;">visibility</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card col-md-3 col-12 mb-3">
-                <div class="card-body text-center d-flex align-items-center">
-                    <div class="col-11">
-                        <div class="w-100 d-flex align-items-center">
-                            <div class="flex-grow-1 text-center">
-                                <span class="mat-title text-primary ml-4 fw-bold">Despesas do Mês</span>
-                            </div>
-                        </div>
-                        <span class="mat-title d-flex flex-grow-1 justify-content-center align-items-center mb-0 text-danger">{{totalExpense | currencyValue}}</span>
-                    </div>
-                    <div class="col-1">
-                        <div class="cursor-pointer d-flex align-items-center justify-content-center" (click)="navigateToManagment('expense')">
-                            <i class="material-icons material-symbols-outlined text-primary" style="font-size: 20px;">visibility</i>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

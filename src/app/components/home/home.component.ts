@@ -5,6 +5,8 @@ import { CategoryService } from 'app/services/category.service';
 import { CategoryHistoryModel } from 'app/models/category-history.model';
 import { Chart } from 'chart.js';
 import { Router } from '@angular/router';
+import { ClassType } from 'app/enums/class-type';
+import { ColorService } from 'app/services/color.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
+    private colorService: ColorService,
     private router: Router) { }
 
   ngOnInit() {
@@ -100,12 +103,20 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.receiveList && this.receiveList.length > 0) {
+      let dataByClass = [];
+      Object.keys(ClassType).forEach(key => {
+        let classType = ClassType[key];
+        let value = this.expenseList.filter(asset => asset.class == classType).reduce((acc, asset) => acc + asset.totalValue, 0);
+        if (value > 0) {
+          dataByClass.push({ class: classType, value: value });
+        }
+      });
       var myReceiveExpenseChart = new Chart(receiveExpenseChart, {
         type: 'doughnut',
         data: {
           datasets: [{
-            data: [this.totalExpense, this.totalReceive],
-            backgroundColor: ['rgb(200, 9, 9)', 'rgb(10, 200, 144)'],
+            data: dataByClass,
+            backgroundColor: this.colorService.getHarmoniousColors(dataByClass.length),
             borderWidth: 1
           }]
         },
@@ -113,31 +124,11 @@ export class HomeComponent implements OnInit {
           plugins: {
             legend: {
               position: 'left'
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  let label = context.dataIndex == 0 ? 'Despesas' : 'Receitas';
-                  const valor = typeof context.raw === 'number' ? context.raw : 0;
-                  return label + ': ' + new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-                }
-              }
             }
           },
           onHover: (event, chartElement) => {
             const canvas = myReceiveExpenseChart.canvas;
             canvas.style.cursor = chartElement.length ? 'pointer' : 'default';
-          },
-          onClick: (evt, element) => {
-            if (element.length > 0) {
-              var index = element[0].index;
-              // Verify if the user clicked on the expense or receive chart
-              if (index === 0) {
-                this.navigateToManagment('expense');
-              } else if (index === 1) {
-                this.navigateToManagment('receive');
-              }
-            }
           }
         }
       });

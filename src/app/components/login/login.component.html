@@ -1,29 +1,18 @@
-<header class="d-flex w-100 align-items-center justify-content-between px-md-5 px-3" style="height: 88px">
-    <a href="#" class="fw-bold text-decoration-none text-success fs-3">My Financy</a>
-    <a href="#" class="fw-bold text-decoration-none text-success">Criar conta</a>
-</header>
-<mat-divider></mat-divider>
-<div class="d-flex align-items-center justify-content-center">
-    <div class="login-form">
-        <fieldset>
-            <h4 class="mb-4">Login</h4>
-            <form [formGroup]="loginForm" (ngSubmit)="login()">
-                <mat-form-field appearance="outline" class="w-100 mb-3">
-                    <mat-label>E-mail</mat-label>
-                    <input matInput formControlName="email" type="email">
-                    <mat-icon matSuffix>email</mat-icon>
-                </mat-form-field>
+<h4 class="mb-4">Login</h4>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
 
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Senha</mat-label>
-                    <input matInput formControlName="password" type="password">
-                    <mat-icon matSuffix>lock</mat-icon>
-                </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" type="password">
+        <mat-icon matSuffix>lock</mat-icon>
+    </mat-form-field>
 
-                <a href="#" class="fw-bold text-decoration-none text-primary d-block text-end py-3 me-1">Esqueci a senha</a>
+    <a href="#" class="fw-bold text-decoration-none text-primary d-block text-end py-3 me-1">Esqueci a senha</a>
 
-                <button mat-flat-button color="primary" class=" bg-success fw-bold w-100" type="submit">Entrar</button>
-            </form>
-        </fieldset>
-    </div>
-</div>
+    <button mat-flat-button color="primary" class=" bg-success fw-bold fs-5 py-4 w-100" type="submit">Entrar</button>
+</form>

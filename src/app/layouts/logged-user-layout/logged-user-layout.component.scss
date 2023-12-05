@@ -1,0 +1,17 @@
+.overflow {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .overflow::-webkit-scrollbar {
+      height: 100%;
+      width: 6px;
+  }
+  
+  .overflow.has-scrollbar {
+      justify-content: flex-start !important;
+  }
+  
+  .overflow::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+  }

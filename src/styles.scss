@@ -6,4 +6,13 @@ $success: rgb(0, 166, 125);
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
-}  
+}
+
+::ng-deep .custom-snackbar {
+    background-color: rgb(208, 100, 100) !important;
+    color: white !important;
+}
+
+::ng-deep .custom-snackbar .mat-simple-snackbar-action {
+    color: white !important;
+}

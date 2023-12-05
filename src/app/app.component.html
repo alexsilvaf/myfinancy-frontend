@@ -1,6 +1,1 @@
-<div class="d-flex w-100">
-  <app-sidebar *ngIf="loggedUser"></app-sidebar>
-  <div class="w-100" [ngClass]="{'py-5 overflow': loggedUser}" [ngStyle]="{'margin-bottom': isMobileMenu ? '60px' : '0'}">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<router-outlet></router-outlet>

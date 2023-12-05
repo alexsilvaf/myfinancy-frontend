@@ -13,6 +13,8 @@ import { IntegerNumberDirective } from 'app/directives/integer-number.directive'
 import { UserAccountComponent } from './user-account/user-account.component';
 import { LoginComponent } from './login/login.component';
 import { ManageAssetModalComponent } from './manage-asset-modal/manage-asset-modal.component';
+import { RegisterAccountComponent } from './register-account/register-account.component';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 const COMPONENTS = [
   HomeComponent,
@@ -30,12 +32,15 @@ const COMPONENTS = [
     DoubleNumberDirective,
     IntegerNumberDirective,
     COMPONENTS,
+    RegisterAccountComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
     NgChartsModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
   exports: [
     ...COMPONENTS,

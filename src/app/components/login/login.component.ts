@@ -30,7 +30,7 @@ export class LoginComponent {
 
       if (email === mockUser.email && password === 'Password@132!') {
         this.authService.login(mockUser);
-        this.snackBar.open('Logado com sucesso', 'Fechar', {
+        this.snackBar.open('Conectado com sucesso', 'Fechar', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'right'

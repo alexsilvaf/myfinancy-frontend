@@ -1,0 +1,12 @@
+<header class="d-flex w-100 align-items-center justify-content-between px-md-5 px-3" style="height: 88px">
+    <a routerLink="home" class="fw-bold text-decoration-none text-success fs-3">My Financy</a>
+    <a [routerLink]="isLoginRoute ? 'register' : 'login'" class="fw-bold text-decoration-none text-success">{{isLoginRoute ? 'Criar conta' : 'Entrar'}}</a>
+</header>
+<mat-divider></mat-divider>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="login-form">
+        <fieldset>
+            <router-outlet></router-outlet>
+        </fieldset>
+    </div>
+</div>
