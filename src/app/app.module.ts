@@ -7,6 +7,7 @@ import { ComponentModule } from './components/component.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LayoutsModule } from './layouts/layouts.module';
 import { provideNgxMask } from 'ngx-mask';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { provideNgxMask } from 'ngx-mask';
     LayoutsModule,
   ],
   providers: [
+    AuthInterceptorProvider,
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     provideNgxMask(),
   ],

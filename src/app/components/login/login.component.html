@@ -2,13 +2,13 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
     <mat-form-field appearance="outline" class="w-100 mb-3">
         <mat-label>E-mail</mat-label>
-        <input matInput formControlName="email" type="email">
+        <input matInput formControlName="email" [(ngModel)]="creds.email" type="email">
         <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Senha</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input matInput formControlName="password" [(ngModel)]="creds.password" type="password">
         <mat-icon matSuffix>lock</mat-icon>
     </mat-form-field>
 

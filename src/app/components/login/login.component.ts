@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Credenciais } from 'app/models/credenciais';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/services/auth.service';
 
@@ -13,29 +14,31 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
 
+  creds: Credenciais = {
+    email: 'admin@mail.com',
+    password: 'Password@123!'
+  }
+
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
-      email: ['user@example.com', [Validators.required, Validators.email]],
-      password: ['Password@132!', [Validators.required]]
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required]]
     });
   }
 
   login() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      const mockUser = new UserModel();
-      mockUser.id = 1;
-      mockUser.name = 'User';
-      mockUser.email = 'user@example.com';
+      this.creds.email = this.loginForm.get('email')?.value;
+      this.creds.password = this.loginForm.get('password')?.value;
 
-      if (email === mockUser.email && password === 'Password@132!') {
-        this.authService.login(mockUser);
-        this.snackBar.open('Conectado com sucesso', 'Fechar', {
+      this.authService.authenticate(this.creds).subscribe(resposta => {
+        this.authService.successfulLogin(resposta.headers?.get('Authorization').substring(7));
+        this.snackBar.open('Login realizado com sucesso', 'Fechar', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'right'
         });
-      } else {
+      }, () => {
         this.loginError = 'Email ou senha inválidos.';
         this.snackBar.open(this.loginError, 'Fechar', {
           duration: 3000,
@@ -43,7 +46,7 @@ export class LoginComponent {
           horizontalPosition: 'right',
           panelClass: ['custom-snackbar']
         });
-      }
+      });
     }
   }
 }
