@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const MATERIAL_COMPONENTS = [
   FormsModule,
@@ -33,6 +34,7 @@ const MATERIAL_COMPONENTS = [
   MatMenuModule,
   MatCardModule,
   MatDividerModule,
+  MatCheckboxModule,
 ]
 
 @NgModule({

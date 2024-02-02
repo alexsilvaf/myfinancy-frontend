@@ -13,16 +13,19 @@ import { AuthService } from 'app/services/auth.service';
 export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
+  loginAttempts = 0;
+  showCaptcha = false;
 
   creds: Credenciais = {
     email: 'admin@mail.com',
-    password: 'Password@123!'
+    password: 'Password@123!',
   }
 
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required]]
+      password: [null, [Validators.required]],
+      remember: [false]
     });
   }
 
@@ -30,9 +33,10 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.creds.email = this.loginForm.get('email')?.value;
       this.creds.password = this.loginForm.get('password')?.value;
+      let remember = this.loginForm.get('remember')?.value;
 
       this.authService.authenticate(this.creds).subscribe(resposta => {
-        this.authService.successfulLogin(resposta.headers?.get('Authorization').substring(7));
+        this.authService.successfulLogin(resposta.headers?.get('Authorization').substring(7), remember);
         this.snackBar.open('Login realizado com sucesso', 'Fechar', {
           duration: 3000,
           verticalPosition: 'bottom',
@@ -46,7 +50,26 @@ export class LoginComponent {
           horizontalPosition: 'right',
           panelClass: ['custom-snackbar']
         });
+        this.loginAttempts++;
+        this.sumLoginError();
       });
+    } else {
+      this.snackBar.open('Preencha os campos corretamente', 'Fechar', {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: ['custom-snackbar']
+      });
+      this.sumLoginError();
     }
+  }
+
+  sumLoginError() {
+    this.loginAttempts++;
+    return this.showCaptcha && this.loginAttempts >= 3;
+  }
+
+  resolvedCaptcha(response: string) {
+    console.log(response);
   }
 }

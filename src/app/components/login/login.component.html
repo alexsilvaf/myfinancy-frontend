@@ -12,7 +12,15 @@
         <mat-icon matSuffix>lock</mat-icon>
     </mat-form-field>
 
-    <a href="#" class="fw-bold text-decoration-none text-primary d-block text-end py-3 me-1">Esqueci a senha</a>
+    <section>
+        <mat-checkbox formControlName="remember">
+            <span class="fw-bold text-primary">Lembrar usuário</span>
+        </mat-checkbox>
+    </section>
+    <a href="#" class="fw-bold text-decoration-none text-primary d-block text-end pb-3 me-1">Esqueci a senha</a>
+    <div class="d-flex justify-content-center mb-3" *ngIf="showCaptcha">
+      <re-captcha (resolved)="resolvedCaptcha($event)" siteKey="6Lc_cmIpAAAAAB4BdbXrsgLfBpFi12D78JtFUjFU"></re-captcha>
+    </div>
 
     <button mat-flat-button color="primary" class=" bg-success fw-bold fs-5 py-4 w-100" type="submit">Entrar</button>
 </form>

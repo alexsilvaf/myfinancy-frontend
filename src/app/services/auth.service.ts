@@ -47,13 +47,18 @@ export class AuthService {
     // })
   }
 
-  successfulLogin(authToken: string) {
-    localStorage.setItem('token', authToken);
+  successfulLogin(authToken: string, remember: boolean) {
+    if(remember){
+      localStorage.setItem('token', authToken);
+    } else {
+      sessionStorage.setItem('token', authToken);
+    }
     this.router.navigate(['home']);
   }
 
   isAuthenticated() {
-    let token = localStorage.getItem('token')
+    let localToken = localStorage.getItem('token');
+    let token = localToken ? localToken : sessionStorage.getItem('token');
     if (token != null) {
       return !this.jwtService.isTokenExpired(token);
     }
@@ -62,6 +67,15 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['']);
   }
+
+  /*verifyCaptcha(event: MouseEvent) {
+    event.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6Lc_cmIpAAAAAB4BdbXrsgLfBpFi12D78JtFUjFU', { action: 'LOGIN' });
+      // Aqui deve ser enviado o token para o backend para validação
+    });
+  }*/
 }

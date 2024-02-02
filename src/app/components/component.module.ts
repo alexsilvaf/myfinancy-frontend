@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { ManageAssetModalComponent } from './manage-asset-modal/manage-asset-modal.component';
 import { RegisterAccountComponent } from './register-account/register-account.component';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 const COMPONENTS = [
   HomeComponent,
@@ -41,6 +42,7 @@ const COMPONENTS = [
     NgChartsModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    RecaptchaModule,
   ],
   exports: [
     ...COMPONENTS,
