@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Credenciais } from 'app/models/credenciais';
@@ -10,7 +10,8 @@ import { AuthService } from 'app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
+  private scriptTag: HTMLScriptElement;
   loginForm: FormGroup;
   loginError: string | null = null;
   loginAttempts = 0;
@@ -27,6 +28,18 @@ export class LoginComponent {
       password: [null, [Validators.required]],
       remember: [false]
     });
+  }
+
+  ngOnInit(): void {
+    this.scriptTag = document.createElement('script');
+    this.scriptTag.src = 'https://www.google.com/recaptcha/enterprise.js?render=6Lc_cmIpAAAAAB4BdbXrsgLfBpFi12D78JtFUjFU';
+    this.scriptTag.async = true;
+    this.scriptTag.defer = true;
+    document.body.appendChild(this.scriptTag);
+  }
+
+  ngOnDestroy(): void {
+    this.removeRecaptchaScript();
   }
 
   login() {
@@ -63,6 +76,21 @@ export class LoginComponent {
       this.sumLoginError();
     }
   }
+
+  removeRecaptchaScript(): void {
+    // Remove reCAPTCHA icon 
+    const badge = document.querySelector('.grecaptcha-badge');
+    if (badge) {
+      badge.parentNode.removeChild(badge);
+    }
+
+    // Remove reCAPTCHA script
+    const recaptchaScript = document.querySelector('script[src*="recaptcha"]');
+    if (recaptchaScript) {
+      recaptchaScript.parentNode.removeChild(recaptchaScript);
+    }
+  }
+
 
   sumLoginError() {
     this.loginAttempts++;
