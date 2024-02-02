@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginError: string | null = null;
   loginAttempts = 0;
   showCaptcha = false;
+  captchaKey = '6Le5mWIpAAAAAM6CHS0S5kVXsaaE6cjMHrUCON3t';
 
   creds: Credenciais = {
     email: 'admin@mail.com',
@@ -32,14 +33,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.scriptTag = document.createElement('script');
-    this.scriptTag.src = 'https://www.google.com/recaptcha/enterprise.js?render=6Lc_cmIpAAAAAB4BdbXrsgLfBpFi12D78JtFUjFU';
+    this.scriptTag.src = 'https://www.google.com/recaptcha/enterprise.js';
     this.scriptTag.async = true;
     this.scriptTag.defer = true;
     document.body.appendChild(this.scriptTag);
   }
 
   ngOnDestroy(): void {
-    this.removeRecaptchaScript();
+    // Remova a tag do script e o callback quando o componente for destruído
+    if (this.scriptTag) {
+      document.body.removeChild(this.scriptTag);
+    }
   }
 
   login() {
@@ -74,20 +78,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         panelClass: ['custom-snackbar']
       });
       this.sumLoginError();
-    }
-  }
-
-  removeRecaptchaScript(): void {
-    // Remove reCAPTCHA icon 
-    const badge = document.querySelector('.grecaptcha-badge');
-    if (badge) {
-      badge.parentNode.removeChild(badge);
-    }
-
-    // Remove reCAPTCHA script
-    const recaptchaScript = document.querySelector('script[src*="recaptcha"]');
-    if (recaptchaScript) {
-      recaptchaScript.parentNode.removeChild(recaptchaScript);
     }
   }
 
