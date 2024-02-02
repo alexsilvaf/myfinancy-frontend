@@ -36,6 +36,7 @@ export class LoginComponent {
       let remember = this.loginForm.get('remember')?.value;
 
       this.authService.authenticate(this.creds).subscribe(resposta => {
+        this.loginAttempts = 0;
         this.authService.successfulLogin(resposta.headers?.get('Authorization').substring(7), remember);
         this.snackBar.open('Login realizado com sucesso', 'Fechar', {
           duration: 3000,
@@ -50,7 +51,6 @@ export class LoginComponent {
           horizontalPosition: 'right',
           panelClass: ['custom-snackbar']
         });
-        this.loginAttempts++;
         this.sumLoginError();
       });
     } else {
@@ -66,7 +66,7 @@ export class LoginComponent {
 
   sumLoginError() {
     this.loginAttempts++;
-    return this.showCaptcha && this.loginAttempts >= 3;
+    this.showCaptcha = this.loginAttempts >= 3;
   }
 
   resolvedCaptcha(response: string) {
